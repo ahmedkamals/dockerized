@@ -1,0 +1,60 @@
+version: '2'
+services:
+  service_discovery:
+    image: progrium/consul
+    command: -server -bootstrap -data-dir="/tmp/consul" -ui-dir /ui
+    tmpfs: /tmp/consul
+    ports:
+      - "8400:8400"
+      - "8500:8500"
+      - "8600:53/udp"
+
+  frontend_static:
+    extends:
+      file: config.yml
+      service: common
+    image: localhost/ak-frontend-static:latest
+    ports:
+      - "80:80"
+    volumes:
+      - "./codebase:/ak/projects/www"
+    depends_on:
+      - service_discovery
+
+  php_fpm:
+    extends:
+      file: config.yml
+      service: common
+    image: localhost/ak-php-fpm:latest
+    ports:
+      - "9000"
+    volumes:
+      - "./codebase:/ak/projects/www"
+      - "./share:/ak/projects/share"
+    depends_on:
+      - service_discovery
+
+  periodical_tasks:
+    extends:
+      file: config.yml
+      service: common
+    image: localhost/ak-periodical-tasks:latest
+    ports:
+      - "9000"
+    volumes:
+      - "./codebase:/ak/projects/www"
+      - "./share:/ak/projects/share"
+    depends_on:
+      - service_discovery
+
+  datastorage_relational:
+    extends:
+      file: config.yml
+      service: common
+    image: localhost/ak-data-storage-relational:latest
+    volumes:
+      - "./mysql-data:/var/lib/mysql"
+    ports:
+      - "3306"
+    depends_on:
+      - service_discovery

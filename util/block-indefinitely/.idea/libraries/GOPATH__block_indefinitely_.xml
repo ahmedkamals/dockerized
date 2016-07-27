@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="GOPATH &lt;block-indefinitely&gt;">
+    <CLASSES>
+      <root url="file://$USER_HOME$/Workspace/sellercenter/source/go/src/golang.org" />
+      <root url="file://$USER_HOME$/Workspace/sellercenter/source/go/src/github.com" />
+      <root url="file://$USER_HOME$/Workspace/sellercenter/source/go/src/rocket-labs" />
+    </CLASSES>
+    <SOURCES />
+    <excluded>
+      <root url="file://$PROJECT_DIR$" />
+    </excluded>
+  </library>
+</component>

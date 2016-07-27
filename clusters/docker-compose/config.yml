@@ -1,0 +1,10 @@
+version: '2'
+services:
+  common:
+    environment:
+      DOCKER_HOST_IP: "192.168.99.101"
+      DOCKER_HOST_NAME: "dock-mach"
+      AK_INSTANCE_IDENTIFIER: "development_instance"
+      DISCOVERY_SERVER: "http://192.168.99.101:8500/"
+    volumes:
+      - "/var/run/docker.sock:/docker.sock"
